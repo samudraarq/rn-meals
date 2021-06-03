@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 const FavoritesScreen = (props) => {
   return (
     <View style={styles.screen}>
-      <Text>The Categories Screen</Text>
+      <Text>The Favorites Screen</Text>
     </View>
   );
 };
