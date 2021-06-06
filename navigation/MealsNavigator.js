@@ -24,6 +24,12 @@ const stackScreenOptions = {
   headerStyle: {
     backgroundColor: Platform.OS === "android" ? Colors.primaryColor : "",
   },
+  headerTitleStyle: {
+    fontFamily: "open-sans-bold",
+  },
+  headerBackTitleStyle: {
+    fontFamily: "open-sans",
+  },
   headerTintColor: Platform.OS === "android" ? "white" : Colors.primaryColor,
 };
 
@@ -161,6 +167,9 @@ const MealsFavNavigator = () => {
     <MealsFavTabNavigator.Navigator
       tabBarOptions={{
         activeTintColor: Colors.accentColor,
+        labelStyle: {
+          fontFamily: "open-sans-bold",
+        },
       }}
       screenOptions={({ route }) => ({
         tabBarIcon: (tabInfo) => {
