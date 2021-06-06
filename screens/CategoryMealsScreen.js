@@ -14,18 +14,15 @@ const CategoryMealsScreen = (props) => {
         affordability={itemData.item.affordability}
         imageUrl={itemData.item.imageUrl}
         onSelectMeal={() => {
-          props.navigation.navigate({
-            routeName: "MealDetail",
-            params: {
-              mealId: itemData.item.id,
-            },
+          props.navigation.navigate("MealDetail", {
+            mealId: itemData.item.id,
           });
         }}
       />
     );
   };
 
-  const catId = props.navigation.getParam("categoryId");
+  const catId = props.route.params.categoryId;
 
   const displayedMeals = MEALS.filter(
     (meal) => meal.categoryId.indexOf(catId) >= 0
@@ -42,15 +39,15 @@ const CategoryMealsScreen = (props) => {
   );
 };
 
-CategoryMealsScreen.navigationOptions = (navigationData) => {
-  const catId = navigationData.navigation.getParam("categoryId");
+// CategoryMealsScreen.navigationOptions = (navigationData) => {
+//   const catId = navigationData.route.params.categoryId;
 
-  const selectedCategory = CATEGORIES.find((category) => category.id === catId);
+//   const selectedCategory = CATEGORIES.find((category) => category.id === catId);
 
-  return {
-    headerTitle: selectedCategory.title,
-  };
-};
+//   return {
+//     headerTitle: selectedCategory.title,
+//   };
+// };
 
 export default CategoryMealsScreen;
 
