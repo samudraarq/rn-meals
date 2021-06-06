@@ -7,6 +7,8 @@ import { createAppContainer } from "react-navigation";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+
 import Colors from "../constants/Colors";
 import HeaderButton from "../components/HeaderButton";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
@@ -92,7 +94,10 @@ const MealsNavigator = () => {
   );
 };
 
-const MealsFavTabNavigator = createBottomTabNavigator();
+const MealsFavTabNavigator =
+  Platform.OS === "android"
+    ? createMaterialBottomTabNavigator()
+    : createBottomTabNavigator();
 
 const AppNavigator = () => {
   return (
