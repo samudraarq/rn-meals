@@ -1,5 +1,6 @@
 import React from "react";
 import { Platform } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 import { createAppContainer } from "react-navigation";
 // import { createStackNavigator } from "react-navigation-stack";
@@ -96,7 +97,28 @@ const MealsFavTabNavigator = createBottomTabNavigator();
 const AppNavigator = () => {
   return (
     <NavigationContainer>
-      <MealsFavTabNavigator.Navigator>
+      <MealsFavTabNavigator.Navigator
+        tabBarOptions={{
+          activeTintColor: Colors.accentColor,
+        }}
+        screenOptions={({ route }) => ({
+          tabBarIcon: (tabInfo) => {
+            let iconName;
+            if (route.name === "Meals") {
+              iconName = "ios-restaurant";
+            } else if (route.name === "Favorite") {
+              iconName = "ios-star";
+            }
+            return (
+              <Ionicons
+                name={iconName}
+                color={tabInfo.color}
+                size={tabInfo.size}
+              />
+            );
+          },
+        })}
+      >
         <MealsFavTabNavigator.Screen name="Meals" component={MealsNavigator} />
         <MealsFavTabNavigator.Screen
           name="Favorite"
