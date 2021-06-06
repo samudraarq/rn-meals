@@ -16,7 +16,7 @@ import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import CategoriesScreen from "../screens/CategoriesScreen";
 import CategoryMealsScreen from "../screens/CategoryMealsScreen";
 import MealDetailScreen from "../screens/MealDetailScreen";
-import FavoriteScreen from "../screens/FavoriteScreen";
+import FavoritesScreen from "../screens/FavoritesScreen";
 
 import { CATEGORIES, MEALS } from "../data/dummy-data";
 
@@ -39,25 +39,24 @@ import { CATEGORIES, MEALS } from "../data/dummy-data";
 //   }
 // );
 
-const Stack = createStackNavigator();
+const stackScreenOptions = {
+  headerStyle: {
+    backgroundColor: Platform.OS === "android" ? Colors.primaryColor : "",
+  },
+  headerTintColor: Platform.OS === "android" ? "white" : Colors.primaryColor,
+};
+
+const MealsNavigatorStack = createStackNavigator();
 
 const MealsNavigator = () => {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: Platform.OS === "android" ? Colors.primaryColor : "",
-        },
-        headerTintColor:
-          Platform.OS === "android" ? "white" : Colors.primaryColor,
-      }}
-    >
-      <Stack.Screen
+    <MealsNavigatorStack.Navigator screenOptions={stackScreenOptions}>
+      <MealsNavigatorStack.Screen
         name="Categories"
         component={CategoriesScreen}
         options={{ title: "Meal Categories" }}
       />
-      <Stack.Screen
+      <MealsNavigatorStack.Screen
         name="CategoryMeals"
         component={CategoryMealsScreen}
         options={({ route }) => {
@@ -68,7 +67,7 @@ const MealsNavigator = () => {
           return { title: selectedCategory.title };
         }}
       />
-      <Stack.Screen
+      <MealsNavigatorStack.Screen
         name="MealDetail"
         component={MealDetailScreen}
         options={({ route }) => {
@@ -90,7 +89,25 @@ const MealsNavigator = () => {
           };
         }}
       />
-    </Stack.Navigator>
+    </MealsNavigatorStack.Navigator>
+  );
+};
+
+const FavNavigatorStack = createStackNavigator();
+
+const FavoriteNavigator = () => {
+  return (
+    <FavNavigatorStack.Navigator screenOptions={stackScreenOptions}>
+      <FavNavigatorStack.Screen
+        name="Favorites"
+        component={FavoritesScreen}
+        options={{ title: "Your Favorites" }}
+      />
+      <FavNavigatorStack.Screen
+        name="MealDetail"
+        component={MealDetailScreen}
+      />
+    </FavNavigatorStack.Navigator>
   );
 };
 
@@ -127,7 +144,7 @@ const AppNavigator = () => {
         <MealsFavTabNavigator.Screen name="Meals" component={MealsNavigator} />
         <MealsFavTabNavigator.Screen
           name="Favorite"
-          component={FavoriteScreen}
+          component={FavoriteNavigator}
         />
       </MealsFavTabNavigator.Navigator>
     </NavigationContainer>
