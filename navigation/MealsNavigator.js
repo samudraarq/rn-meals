@@ -126,7 +126,7 @@ const FilterNavigatorStack = createStackNavigator();
 
 const FilterNavigator = () => {
   return (
-    <FilterNavigatorStack.Navigator>
+    <FilterNavigatorStack.Navigator screenOptions={stackScreenOptions}>
       <FilterNavigatorStack.Screen
         name="Filters"
         component={FiltersScreen}
@@ -193,10 +193,16 @@ const MainNavigatorDrawer = createDrawerNavigator();
 
 const MainNavigator = () => {
   return (
-    <MainNavigatorDrawer.Navigator>
+    <MainNavigatorDrawer.Navigator
+      drawerContentOptions={{
+        activeTintColor: Colors.accentColor,
+        labelStyle: { fontFamily: "open-sans-bold" },
+      }}
+    >
       <MainNavigatorDrawer.Screen
         name="MealsFavs"
         component={MealsFavNavigator}
+        options={{ drawerLabel: "Meals" }}
       />
       <MainNavigatorDrawer.Screen name="Filters" component={FilterNavigator} />
     </MainNavigatorDrawer.Navigator>
