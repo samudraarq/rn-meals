@@ -73,10 +73,8 @@ const MealsNavigator = () => {
         name="MealDetail"
         component={MealDetailScreen}
         options={({ route }) => {
-          const mealId = route.params.mealId;
-          const selectedMeal = MEALS.find((meal) => meal.id === mealId);
           return {
-            title: selectedMeal.title,
+            title: route.params.mealTitle,
             headerRight: () => (
               <HeaderButtons HeaderButtonComponent={HeaderButton}>
                 <Item

@@ -24,10 +24,6 @@ const CategoriesScreen = (props) => {
   );
 };
 
-// CategoriesScreen.navigationOptions = {
-//   headerTitle: "Meal Categories",
-// };
-
 export default CategoriesScreen;
 
 const styles = StyleSheet.create({
