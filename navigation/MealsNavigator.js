@@ -1,6 +1,7 @@
 import React from "react";
 import { Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useDispatch, useSelector } from "react-redux";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -18,7 +19,8 @@ import MealDetailScreen from "../screens/MealDetailScreen";
 import FavoritesScreen from "../screens/FavoritesScreen";
 import FiltersScreen from "../screens/FiltersScreen";
 
-import { CATEGORIES, MEALS } from "../data/dummy-data";
+import { CATEGORIES } from "../data/dummy-data";
+import { toggleFavorite } from "../store/actions/meals";
 
 const stackScreenOptions = {
   headerStyle: {
@@ -36,6 +38,14 @@ const stackScreenOptions = {
 const MealsNavigatorStack = createStackNavigator();
 
 const MealsNavigator = () => {
+  const favoriteMeals = useSelector((state) => state.meals.favoriteMeals);
+
+  const dispatch = useDispatch();
+
+  const toggleFavoriteHandler = (id) => {
+    dispatch(toggleFavorite(id));
+  };
+
   return (
     <MealsNavigatorStack.Navigator screenOptions={stackScreenOptions}>
       <MealsNavigatorStack.Screen
@@ -79,9 +89,15 @@ const MealsNavigator = () => {
               <HeaderButtons HeaderButtonComponent={HeaderButton}>
                 <Item
                   title="Favorite"
-                  iconName="ios-star"
+                  iconName={
+                    favoriteMeals.some(
+                      (meal) => meal.id === route.params.mealId
+                    )
+                      ? "ios-star"
+                      : "ios-star-outline"
+                  }
                   onPress={() => {
-                    console.log("Mark as favorite");
+                    toggleFavoriteHandler(route.params.mealId);
                   }}
                 />
               </HeaderButtons>
